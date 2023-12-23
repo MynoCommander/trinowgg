@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login Page</title>
+  <title>Register Page</title>
   <style>
     body {
       margin: 0;
@@ -17,14 +17,14 @@
       justify-content: center;
     }
 
-    #login-container {
+    #register-container {
       background: rgba(255, 255, 255, 0.8);
       padding: 20px;
       border-radius: 10px;
       text-align: center;
     }
 
-    #register-link {
+    #login-link {
       color: green;
       text-decoration: underline;
     }
@@ -44,10 +44,13 @@
   </style>
 </head>
 <body>
-  <div id="login-container">
-    <!-- Your login form goes here -->
-    <button>Login</button>
-    <p>You don't have an account? <span id="register-link">REGISTER</span></p>
+  <div id="register-container">
+    <!-- Your registration form goes here -->
+    <input type="text" placeholder="Username">
+    <input type="email" placeholder="Email">
+    <input type="password" placeholder="Password">
+    <button>Register</button>
+    <p>You already have an account? <span id="login-link">LOGIN</span></p>
 
     <!-- Discord login section -->
     <div id="discord-login">
