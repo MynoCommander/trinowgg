@@ -33,12 +33,17 @@
     // Replace 'YOUR_OAUTH_LINK' with your actual Discord OAuth link
     const discordOAuthUrl = 'https://discord.com/api/oauth2/authorize?client_id=1188175462451646504&response_type=code&redirect_uri=https%3A%2F%2Fwww.trinow.zya.me%2Fdashboard&scope=identify+email+guilds';
 
-    // Check if the user is already logged in
-    const isLoggedIn = localStorage.getItem('discordLoggedIn');
+    function checkAndRedirect() {
+      // Check if the user is already logged in
+      const isLoggedIn = localStorage.getItem('discordLoggedIn');
 
-    if (isLoggedIn) {
-      // Redirect to the home page if logged in
-      window.location.href = 'https://www.trinow.zya.me';
+      if (isLoggedIn) {
+        // Redirect to the home page if logged in
+        window.location.href = 'https://www.trinow.zya.me/dashboard';
+      } else {
+        // Redirect to another page if not logged in
+        window.location.href = 'https://www.trinow.zya.me/getstarted';
+      }
     }
 
     function loginWithDiscord() {
@@ -47,13 +52,11 @@
 
       // Simulate successful login
       localStorage.setItem('discordLoggedIn', 'true');
-      window.location.href = 'https://www.trinow.zya.me';
+      checkAndRedirect();
     }
 
-    // Redirect to another page if not logged in
-    if (!isLoggedIn) {
-      window.location.href = 'https://www.trinow.zya.me/getstarted';
-    }
+    // Check and redirect when the page loads
+    checkAndRedirect();
   </script>
 
   <button id="discord-login" onclick="loginWithDiscord()">
