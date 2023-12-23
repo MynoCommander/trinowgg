@@ -3,63 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Register Page</title>
+  <title>Discord Login</title>
   <style>
     body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Arial', sans-serif;
-      background: url('your-background-image.jpg') no-repeat center center fixed;
-      background-size: cover;
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      margin: 0;
     }
 
-    #register-container {
-      background: rgba(255, 255, 255, 0.8);
-      padding: 20px;
-      border-radius: 10px;
-      text-align: center;
-    }
-
-    #login-link {
-      color: green;
-      text-decoration: underline;
-    }
-
-    #discord-login {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 10px;
-    }
-
-    #remember-me {
+    button {
+      background-color: blue;
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
       cursor: pointer;
-      color: blue;
-      text-decoration: underline;
+    }
+
+    button:hover {
+      background-color: darkblue;
     }
   </style>
 </head>
 <body>
-  <div id="register-container">
-    <!-- Your registration form goes here -->
-    <input type="text" placeholder="Username">
-    <input type="email" placeholder="Email">
-    <input type="password" placeholder="Password">
-    <button>Register</button>
-    <p>You already have an account? <span id="login-link">LOGIN</span></p>
+  <button id="discord-login" onclick="loginWithDiscord()">
+    <img src="discord-logo.png" alt="Discord Logo" height="20">
+    Discord Login
+  </button>
 
-    <!-- Discord login section -->
-    <div id="discord-login">
-      <img src="discord-logo.png" alt="Discord Logo">
-      <p>Login with Discord</p>
-    </div>
-
-    <!-- Remember me section -->
-    <p id="remember-me">REMEMBER ME</p>
-  </div>
+  <script>
+    function loginWithDiscord() {
+      // Replace 'YOUR_OAUTH_LINK' with your actual Discord OAuth link
+      window.location.href = 'YOUR_OAUTH_LINK';
+    }
+  </script>
 </body>
 </html>
