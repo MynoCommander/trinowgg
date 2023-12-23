@@ -14,7 +14,7 @@
       margin: 0;
     }
 
-    discord-login {
+    button {
       background-color: blue;
       color: white;
       padding: 10px 20px;
@@ -23,40 +23,42 @@
       cursor: pointer;
     }
 
-    discord-login:hover {
+    button:hover {
       background-color: darkblue;
     }
   </style>
 </head>
 <body>
   <script>
+    // Replace 'YOUR_OAUTH_LINK' with your actual Discord OAuth link
+    const discordOAuthUrl = 'https://discord.com/api/oauth2/authorize?client_id=1188175462451646504&response_type=code&redirect_uri=https%3A%2F%2Fwww.trinow.zya.me%2Fdashboard&scope=identify+email+guilds';
+
     // Check if the user is already logged in
     const isLoggedIn = localStorage.getItem('discordLoggedIn');
 
     if (isLoggedIn) {
       // Redirect to the home page if logged in
-      window.location.href = 'https://www.trinow.zya.me/dashboard';
+      window.location.href = 'https://www.trinow.zya.me';
     }
 
     function loginWithDiscord() {
+      // For actual implementation, replace the alert with window.location.href
+      // window.location.href = discordOAuthUrl;
+
       // Simulate successful login
-      // In a real scenario, you would perform OAuth and set the flag accordingly
       localStorage.setItem('discordLoggedIn', 'true');
-      window.location.href = 'https://www.trinow.zya.me/dashboard';
+      window.location.href = 'https://www.trinow.zya.me';
+    }
+
+    // Redirect to another page if not logged in
+    if (!isLoggedIn) {
+      window.location.href = 'https://www.trinow.zya.me/getstarted';
     }
   </script>
 
-  <body>
   <button id="discord-login" onclick="loginWithDiscord()">
     <img src="discord-logo.png" alt="Discord Logo" height="20">
     Discord Login
   </button>
-
-  <script>
-    function loginWithDiscord() {
-      // Replace 'YOUR_OAUTH_LINK' with your actual Discord OAuth link
-      window.location.href = 'https://discord.com/api/oauth2/authorize?client_id=1188175462451646504&response_type=code&redirect_uri=https%3A%2F%2Fwww.trinow.zya.me&scope=guilds+identify+email';
-    }
-  </script>
 </body>
 </html>
