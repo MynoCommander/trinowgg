@@ -29,16 +29,39 @@
   </style>
 </head>
 <body>
+  <script>
+    // Check if the user is already logged in
+    const isLoggedIn = localStorage.getItem('discordLoggedIn');
+
+    if (isLoggedIn) {
+      // Redirect to the home page if logged in
+      window.location.href = 'home.html';
+    }
+
+    function loginWithDiscord() {
+      // Simulate successful login
+      // In a real scenario, you would perform OAuth and set the flag accordingly
+      localStorage.setItem('discordLoggedIn', 'true');
+      window.location.href = 'home.html';
+    }
+  </script>
+
+  <script>
+    // Replace 'YOUR_OAUTH_LINK' with your actual Discord OAuth link
+    const discordOAuthUrl = 'https://discord.com/api/oauth2/authorize?client_id=1188175462451646504&response_type=code&redirect_uri=https%3A%2F%2Fwww.trinow.zya.me&scope=guilds+identify+email';
+
+    function loginWithDiscord() {
+      // Show the Discord OAuth URL
+      alert('Discord OAuth URL:\n' + discordOAuthUrl);
+
+      // For actual implementation, replace the alert with window.location.href
+      // window.location.href = discordOAuthUrl;
+    }
+  </script>
+
   <button id="discord-login" onclick="loginWithDiscord()">
     <img src="discord-logo.png" alt="Discord Logo" height="20">
     Discord Login
   </button>
-
-  <script>
-    function loginWithDiscord() {
-      // Replace 'YOUR_OAUTH_LINK' with your actual Discord OAuth link
-      window.location.href = 'https://discord.com/api/oauth2/authorize?client_id=1188175462451646504&response_type=code&redirect_uri=https%3A%2F%2Fwww.trinow.zya.me&scope=guilds+identify+email';
-    }
-  </script>
 </body>
 </html>
