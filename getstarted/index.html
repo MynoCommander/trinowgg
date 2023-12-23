@@ -14,7 +14,7 @@
       margin: 0;
     }
 
-    button {
+    discord-login {
       background-color: blue;
       color: white;
       padding: 10px 20px;
@@ -23,7 +23,7 @@
       cursor: pointer;
     }
 
-    button:hover {
+    discord-login:hover {
       background-color: darkblue;
     }
   </style>
@@ -46,22 +46,17 @@
     }
   </script>
 
-  <script>
-    // Replace 'YOUR_OAUTH_LINK' with your actual Discord OAuth link
-    const discordOAuthUrl = 'https://discord.com/api/oauth2/authorize?client_id=1188175462451646504&response_type=code&redirect_uri=https%3A%2F%2Fwww.trinow.zya.me&scope=guilds+identify+email';
-
-    function loginWithDiscord() {
-      // Show the Discord OAuth URL
-      alert('Discord OAuth URL:\n' + discordOAuthUrl);
-
-      // For actual implementation, replace the alert with window.location.href
-      // window.location.href = discordOAuthUrl;
-    }
-  </script>
-
+  <body>
   <button id="discord-login" onclick="loginWithDiscord()">
     <img src="discord-logo.png" alt="Discord Logo" height="20">
     Discord Login
   </button>
+
+  <script>
+    function loginWithDiscord() {
+      // Replace 'YOUR_OAUTH_LINK' with your actual Discord OAuth link
+      window.location.href = 'https://discord.com/api/oauth2/authorize?client_id=1188175462451646504&response_type=code&redirect_uri=https%3A%2F%2Fwww.trinow.zya.me&scope=guilds+identify+email';
+    }
+  </script>
 </body>
 </html>
