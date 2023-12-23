@@ -1,67 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Discord Login</title>
-  <style>
-    body {
-      background-color: black;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: url('YOUR_BACKGROUND_IMAGE_URL') no-repeat center center fixed;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+        }
 
-    button {
-      background-color: blue;
-      color: white;
-      padding: 10px 20px;
-      font-size: 16px;
-      border: none;
-      cursor: pointer;
-    }
+        .login-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+        }
 
-    button:hover {
-      background-color: darkblue;
-    }
-  </style>
+        input {
+            padding: 10px;
+            margin: 5px;
+        }
+    </style>
 </head>
 <body>
-  <script>
-    // Replace 'YOUR_OAUTH_LINK' with your actual Discord OAuth link
-    const discordOAuthUrl = 'https://discord.com/api/oauth2/authorize?client_id=1188175462451646504&response_type=code&redirect_uri=https%3A%2F%2Fwww.trinow.zya.me%2Fdashboard&scope=identify+email+guilds';
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="email" id="email" placeholder="Email" required>
+            <br>
+            <input type="password" id="password" placeholder="Password" required>
+            <br>
+            <label for="rememberMe">Remember me</label>
+            <input type="checkbox" id="rememberMe">
+            <br>
+            <button type="button" onclick="login()">Login</button>
+        </form>
+    </div>
 
-    function checkAndRedirect() {
-      // Check if the user is already logged in
-      const isLoggedIn = localStorage.getItem('discordLoggedIn');
+    <script>
+        // Check if there are saved credentials
+        const savedEmail = localStorage.getItem('savedEmail');
+        const savedPassword = localStorage.getItem('savedPassword');
 
-      if (isLoggedIn) {
-        // Redirect to the home page if logged in
-        window.location.href = 'https://www.trinow.zya.me/dashboard';
-      } else {
-        // Redirect to another page if not logged in
-        window.location.href = 'https://www.trinow.zya.me/getstarted';
-      }
-    }
+        if (savedEmail && savedPassword) {
+            document.getElementById('email').value = savedEmail;
+            document.getElementById('password').value = savedPassword;
+            document.getElementById('rememberMe').checked = true;
+        }
 
-    function loginWithDiscord() {
-      // For actual implementation, replace the alert with window.location.href
-      // window.location.href = discordOAuthUrl;
+        function login() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
 
-      // Simulate successful login
-      localStorage.setItem('discordLoggedIn', 'true');
-      checkAndRedirect();
-    }
+            // Save credentials if "Remember me" is checked
+            if (rememberMe) {
+                localStorage.setItem('savedEmail', email);
+                localStorage.setItem('savedPassword', password);
+            } else {
+                localStorage.removeItem('savedEmail');
+                localStorage.removeItem('savedPassword');
+            }
 
-    // Check and redirect when the page loads
-    checkAndRedirect();
-  </script>
-
-  <button id="discord-login" onclick="loginWithDiscord()">
-    <img src="discord-logo.png" alt="Discord Logo" height="20">
-    Discord Login
-  </button>
+            // Perform login actions (add your logic here)
+            // For now, let's just log the entered credentials
+            console.log('Email:', email);
+            console.log('Password:', password);
+        }
+    </script>
 </body>
 </html>
