@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+    <title>Login</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            background: url('YOUR_BACKGROUND_IMAGE_URL') no-repeat center center fixed;
-            background-size: cover;
+            background: #2c3e50;
             font-family: Arial, sans-serif;
+            color: #fff;
         }
 
         .login-container {
@@ -19,12 +19,36 @@
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
-            color: white;
+        }
+
+        h2 {
+            color: #ecf0f1;
+        }
+
+        form {
+            margin-top: 20px;
         }
 
         input {
+            width: 100%;
             padding: 10px;
-            margin: 5px;
+            margin: 5px 0;
+            box-sizing: border-box;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin: 10px 0;
+        }
+
+        button {
+            background: #3498db;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -36,8 +60,9 @@
             <br>
             <input type="password" id="password" placeholder="Password" required>
             <br>
-            <label for="rememberMe">Remember me</label>
-            <input type="checkbox" id="rememberMe">
+            <label for="rememberMe">
+                <input type="checkbox" id="rememberMe"> Remember me
+            </label>
             <br>
             <button type="button" onclick="login()">Login</button>
         </form>
@@ -52,26 +77,36 @@
             document.getElementById('email').value = savedEmail;
             document.getElementById('password').value = savedPassword;
             document.getElementById('rememberMe').checked = true;
+            // Automatically attempt login
+            login();
         }
 
         function login() {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+            const enteredEmail = document.getElementById('email').value;
+            const enteredPassword = document.getElementById('password').value;
             const rememberMe = document.getElementById('rememberMe').checked;
+
+            // Check if entered credentials match saved credentials
+            if (enteredEmail === savedEmail && enteredPassword === savedPassword) {
+                // Perform login actions (use Firebase for email activation)
+                // For now, let's just log the entered credentials
+                console.log('Email:', enteredEmail);
+                console.log('Password:', enteredPassword);
+
+                // Redirect to main page (replace with your actual main page URL)
+                window.location.href = 'https://www.trinow.zya.me/dashboard';
+            } else {
+                console.log('Error: Incorrect email or password');
+            }
 
             // Save credentials if "Remember me" is checked
             if (rememberMe) {
-                localStorage.setItem('savedEmail', email);
-                localStorage.setItem('savedPassword', password);
+                localStorage.setItem('savedEmail', enteredEmail);
+                localStorage.setItem('savedPassword', enteredPassword);
             } else {
                 localStorage.removeItem('savedEmail');
                 localStorage.removeItem('savedPassword');
             }
-
-            // Perform login actions (add your logic here)
-            // For now, let's just log the entered credentials
-            console.log('Email:', email);
-            console.log('Password:', password);
         }
     </script>
 </body>
