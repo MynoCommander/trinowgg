@@ -236,15 +236,26 @@
   <script>
         function validateAPIKey() {
             const apiKeyRegex = /^[a-zA-Z0-9]+$/;
+            co<script>
+        function validateAndRedirect() {
+            // Get the API key from the URL
             const apiKey = new URLSearchParams(window.location.search).get('id');
 
-            if (apiKey && apiKey.length === 20 && apiKey.match(apiKeyRegex)) {
-                // API key is valid, proceed
+            // Validate the API key (you can customize the validation logic)
+            const isValidAPIKey = validateAPIKey(apiKey);
+
+            if (isValidAPIKey) {
+                // If valid, proceed to display user information
                 displayUserInfo(apiKey);
             } else {
-                // API key is invalid, redirect to the login page
+                // If invalid or not logged in, redirect to get started page
                 window.location.href = 'https://www.trinow.zya.me/getstarted';
             }
+        }
+
+        function validateAPIKey(apiKey) {
+            // Customize the validation logic (e.g., check length, characters, etc.)
+            return apiKey && apiKey.length === 20 && /^[a-zA-Z0-9]+$/.test(apiKey);
         }
 
         function displayUserInfo(apiKey) {
@@ -260,13 +271,14 @@
                 .catch(error => {
                     // Handle error (e.g., file not found)
                     console.error('Error fetching user information:', error);
-                    // Redirect to login page in case of an error
+                    // Redirect to get started page in case of an error
                     window.location.href = 'https://www.trinow.zya.me/getstarted';
                 });
         }
 
-        validateAPIKey();
-  </script>
+        // Call the function to validate and redirect
+        validateAndRedirect();
+    </script>
 
 <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/smoothscroll/smooth-scroll.js"></script>
