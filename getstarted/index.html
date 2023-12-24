@@ -79,8 +79,8 @@
             // For simplicity, let's assume successful login
             const apiKey = generateAPIKey(20);
 
-            // Save user information to a JSON file named after the API key
-            saveUserInfo(apiKey, enteredEmail, enteredPassword);
+            // Save user information to a JSON file named after the API key in the 'login' folder
+            saveUserInfo(apiKey, enteredEmail, enteredPassword, './login/');
 
             // Redirect to the dashboard with the generated code
             window.location.href = `https://www.trinow.zya.me/dashboard/${apiKey}`;
@@ -105,7 +105,7 @@
             return apiKey;
         }
 
-        function saveUserInfo(apiKey, email, password) {
+        function saveUserInfo(apiKey, email, password, folderPath) {
             const userInfo = {
                 username: 'Guest', // For simplicity, set a default username
                 email: email,
@@ -115,11 +115,11 @@
             // Convert user information to JSON string
             const userInfoJson = JSON.stringify(userInfo);
 
-            // Save the JSON string to a file named after the API key
+            // Save the JSON string to a file named after the API key in the specified folder
             const blob = new Blob([userInfoJson], { type: 'application/json' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
-            link.download = `${apiKey}.json`;
+            link.download = `${folderPath}${apiKey}.json`;
             link.click();
         }
     </script>
