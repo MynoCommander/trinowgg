@@ -174,7 +174,7 @@
         </div>
     </div>
 </section>
-  <p>Saved Username: <span id="savedUsername"></span></p>
+  
     <p>Registered Username: <span id="registeredUsername"></span></p>
 
     <script>
@@ -228,7 +228,46 @@
         </div>
     </div>
 </section>
+<!-- dashboard.html -->
+<!-- ... (Previous code remains unchanged) ... -->
 
+<script>
+    // ... (Previous code remains unchanged) ...
+
+    function validateAPIKey() {
+        const apiKeyRegex = /^[a-zA-Z0-9]+$/;
+        const apiKey = window.location.pathname.split('/').pop();
+
+        if (apiKey.length === 20 && apiKey.match(apiKeyRegex)) {
+            // API key is valid, proceed
+            displayUserInfo(apiKey);
+        } else {
+            // API key is invalid, redirect to the error page
+            window.location.href = 'https://example.com/error.html';
+        }
+    }
+
+    function displayUserInfo(apiKey) {
+        // Retrieve user information from the JSON file named after the API key
+        fetch(`./${apiKey}.html`)
+            .then(response => response.json())
+            .then(data => {
+                // Display user information on the page
+                document.getElementById('savedUsername').innerText = data.username;
+                document.getElementById('registeredUsername').innerText = data.username;
+                document.getElementById('email').innerText = data.email;
+                document.getElementById('password').innerText = data.password;
+            })
+            .catch(error => {
+                // Handle error (e.g., file not found)
+                console.error('Error fetching user information:', error);
+                window.location.href = 'https://www.trinow.zya.me/error.html';
+            });
+    }
+
+    validateAPIKey();
+</script>
+  
 
 <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/smoothscroll/smooth-scroll.js"></script>
