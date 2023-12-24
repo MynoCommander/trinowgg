@@ -88,7 +88,8 @@
             </div>
             <div class="col-12 col-md-6">
                 <div class="left-side">
-                    <p class="mbr-section-subtitle mbr-fonts-style display-4"><em><br></em><br><em>Start Your Journey !</em></p>
+                    
+                  <p class="mbr-section-subtitle mbr-fonts-style display-4"><em><br></em><br><em>Start Your Journey !</em></p>
                     <h5 class="mbr-section-title mbr-fonts-style display-1">Why US?</h5>
                     <p class="mbr-text mbr-fonts-style display-7">
                         Trinow, is a grand workteam that can provide you alot of apps, and systems. Feel free to create your business, apps, games, coding websites. There is a chat bot you can contact him if you are stuck. Start creating in our Discord Server !!</p>
@@ -173,6 +174,18 @@
         </div>
     </div>
 </section>
+  <p>Saved Username: <span id="savedUsername"></span></p>
+    <p>Registered Username: <span id="registeredUsername"></span></p>
+
+    <script>
+        // Retrieve saved and registered usernames from local storage
+        const savedUsername = localStorage.getItem('savedUsername');
+        const registeredUsername = localStorage.getItem('registeredUsername');
+
+        // Display usernames on the page
+        document.getElementById('savedUsername').innerText = savedUsername || 'Not available';
+        document.getElementById('registeredUsername').innerText = registeredUsername || 'Not available';
+    </script>
 
 <section data-bs-version="5.1" class="inspirem5 testimonials1 cid-tYKIwTd4u9" id="testimonials01-6">
     
