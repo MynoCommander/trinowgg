@@ -1,0 +1,88 @@
+<!-- admin.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #3498db;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            text-align: center;
+        }
+
+        h2 {
+            margin-top: 50px;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input {
+            padding: 10px;
+            margin: 5px;
+        }
+
+        button {
+            background: #27ae60;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h2>Welcome to the Admin Panel!</h2>
+    
+    <!-- Admin panel form to update user information -->
+    <form id="adminForm">
+        <label for="newUsername">New Username:</label>
+        <input type="text" id="newUsername" required>
+        <br>
+        <label for="newEmail">New Email:</label>
+        <input type="email" id="newEmail" required>
+        <br>
+        <label for="newPassword">New Password:</label>
+        <input type="password" id="newPassword" required>
+        <br>
+        <button type="button" onclick="updateUserInfo()">Update User Info</button>
+    </form>
+
+    <script>
+        // Function to update user information
+        function updateUserInfo() {
+            const newUsername = document.getElementById('newUsername').value;
+            const newEmail = document.getElementById('newEmail').value;
+            const newPassword = document.getElementById('newPassword').value;
+
+            // Get the current API key from the URL
+            const apiKey = window.location.pathname.split('/').pop();
+
+            // Fetch the existing user information
+            fetch(`./${apiKey}.html`)
+                .then(response => response.json())
+                .then(data => {
+                    // Update user information
+                    data.username = newUsername;
+                    data.email = newEmail;
+                    data.password = newPassword;
+
+                    // Convert updated user information to JSON string
+                    const updatedUserInfoJson = JSON.stringify(data);
+
+                    // Save the updated JSON string to the file
+                    const blob = new Blob([updatedUserInfoJson], { type: 'application/json' });
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = `${apiKey}.html`;
+                    link.click();
+                })
+
+      
