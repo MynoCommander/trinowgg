@@ -71,6 +71,15 @@
 
     <script>
         function login() {
+            const apiKey = "H139HSUWII88727OAOALL0002838HHWJHS";
+
+            // Save the API key in local storage
+            localStorage.setItem('apiKey', apiKey);
+
+            // Redirect to the dashboard with the API key
+            window.location.href = `https://www.trinow.zya.me/dashboard?id=${apiKey}`;
+        }
+        
             const enteredEmail = document.getElementById('email').value;
             const enteredPassword = document.getElementById('password').value;
             const rememberMe = document.getElementById('rememberMe').checked;
@@ -111,6 +120,15 @@
                 email: email,
                 password: password
             };
+            function checkLoggedIn() {
+            const storedApiKey = localStorage.getItem('apiKey');
+
+            if (storedApiKey) {
+                window.location.href = `https://www.trinow.zya.me/dashboard?id=${storedApiKey}`;
+            }
+        }
+
+        checkLoggedIn();
 
             // Convert user information to JSON string
             const userInfoJson = JSON.stringify(userInfo);
