@@ -36,6 +36,15 @@
             border-radius: 4px;
             cursor: pointer;
         }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 10px 0;
+        }
     </style>
 </head>
 <body>
@@ -55,34 +64,100 @@
         <button type="button" onclick="updateUserInfo()">Update User Info</button>
     </form>
 
+    <!-- Display list of users with edit buttons -->
+    <ul id="userList"></ul>
+
     <script>
-        // Function to update user information
+        // Fetch the list of user files on page load
+        fetchUserList();
+
         function updateUserInfo() {
             const newUsername = document.getElementById('newUsername').value;
             const newEmail = document.getElementById('newEmail').value;
             const newPassword = document.getElementById('newPassword').value;
 
-            // Get the current API key from the URL
-            const apiKey = window.location.pathname.split('/').pop();
+            // Get the selected user from the list
+            const selectedUser = document.querySelector('input[name="user"]:checked');
 
-            // Fetch the existing user information
-            fetch(`./${apiKey}.html`)
+            if (selectedUser) {
+                const apiKey = selectedUser.value;
+
+                // Fetch the existing user information
+                fetch(`./${apiKey}.json`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Update user information
+                        data.username = newUsername;
+                        data.email = newEmail;
+                        data.password = newPassword;
+
+                        // Convert updated user information to JSON string
+                        const updatedUserInfoJson = JSON.stringify(data);
+
+                        // Save the updated JSON string to the file
+                        const blob = new Blob([updatedUserInfoJson], { type: 'application/json' });
+                        const link = document.createElement('a');
+                        link.href = URL.createObjectURL(blob);
+                        link.download = `${apiKey}.json`;
+                        link.click();
+
+                        // Refresh the user list after updating
+                        fetchUserList();
+                    })
+                    .catch(error => {
+                        // Handle error (e.g., file not found)
+                        console.error('Error fetching user information:', error);
+                    });
+            }
+        }
+
+        function fetchUserList() {
+            const userList = document.getElementById('userList');
+
+            // Clear the existing user list
+            userList.innerHTML = '';
+
+            // Fetch the list of user files
+            fetch('./')
+                .then(response => response.text())
+                .then(data => {
+                    // Extract API keys from the directory listing
+                    const apiKeys = data.match(/[a-zA-Z0-9]+\.json/g);
+
+                    // Display the list of users with edit buttons
+                    if (apiKeys) {
+                        apiKeys.forEach(apiKey => {
+                            const username = apiKey.replace('.json', '');
+                            const li = document.createElement('li');
+
+                            li.innerHTML = `
+                                <input type="radio" name="user" value="${username}"> ${username}
+                                <button type="button" onclick="editUser('${username}')">Edit</button>
+                            `;
+                            userList.appendChild(li);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching user list:', error);
+                });
+        }
+
+        function editUser(username) {
+            // Fetch user information for editing
+            fetch(`./${username}.json`)
                 .then(response => response.json())
                 .then(data => {
-                    // Update user information
-                    data.username = newUsername;
-                    data.email = newEmail;
-                    data.password = newPassword;
-
-                    // Convert updated user information to JSON string
-                    const updatedUserInfoJson = JSON.stringify(data);
-
-                    // Save the updated JSON string to the file
-                    const blob = new Blob([updatedUserInfoJson], { type: 'application/json' });
-                    const link = document.createElement('a');
-                    link.href = URL.createObjectURL(blob);
-                    link.download = `${apiKey}.html`;
-                    link.click();
+                    // Fill the form with user information
+                    document.getElementById('newUsername').value = data.username;
+                    document.getElementById('newEmail').value = data.email;
+                    document.getElementById('newPassword').value = data.password;
                 })
-
-      
+                .catch(error => {
+                    // Handle error (e.g., file not found)
+                    console.error('Error fetching user information:', error);
+                });
+        }
+    </script>
+</body>
+</html>
