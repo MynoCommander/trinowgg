@@ -279,6 +279,18 @@
         // Call the function to validate and redirect
         validateAndRedirect();
     </script>
+  <script>
+        // Check if the user is logged in
+        const apiKeyParam = new URLSearchParams(window.location.search).get('id');
+
+        if (!apiKeyParam) {
+            // Redirect to the login page if not logged in
+            window.location.href = 'login.html';
+        }
+
+        // Log the logged-in API key
+        console.log('Logged-in API Key:', apiKeyParam);
+  </script>
 
 <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/smoothscroll/smooth-scroll.js"></script>
