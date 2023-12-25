@@ -51,11 +51,6 @@
             border-radius: 4px;
             cursor: pointer;
         }
-        #registertxt {
-            colour: blue;
-            text-decoration: underlined;
-            cursor: pointer;
-            margin-top: 20px;
     </style>
 </head>
 <body>
@@ -69,35 +64,54 @@
             <label for="rememberMe">
                 <input type="checkbox" id="rememberMe"> Remember me
             </label>
-            <div id="registertxt" onclick="window.location.href='onboarding'">Don't have account?</div>
             <br>
             <button type="button" onclick="login()">Login</button>
         </form>
     </div>
 
     <script>
+        // Check if "Remember me" was clicked during the previous registration
+        const savedEmail = localStorage.getItem('savedEmail');
+        const savedPassword = localStorage.getItem('savedPassword');
+
+        if (savedEmail && savedPassword) {
+            // Redirect to the dashboard with the saved API key
+            window.location.href = `https://www.trinow.zya.me/dashboard?id=${generateAPIKey(20)}`;
+        }
+
         function login() {
             const enteredEmail = document.getElementById('email').value;
             const enteredPassword = document.getElementById('password').value;
             const rememberMe = document.getElementById('rememberMe').checked;
 
-            // Check if entered credentials match saved credentials
-            // For simplicity, let's assume successful login
-            const apiKey = generateAPIKey(20);
+            // Simulate checking against a registered email and password
+            const registeredEmail = localStorage.getItem('registeredEmail');
+            const registeredPassword = localStorage.getItem('registeredPassword');
 
-            // Save user information to a JSON file named after the API key in the same directory
-            saveUserInfo(apiKey, enteredEmail, enteredPassword);
+            if (enteredEmail === registeredEmail) {
+                if (enteredPassword === registeredPassword) {
+                    // Successful login
+                    const apiKey = generateAPIKey(20);
 
-            // Redirect to the dashboard with the generated code
-            window.location.href = `https://www.trinow.zya.me/dashboard?id=${apiKey}`;
+                    // Save user information to a JSON file named after the API key in the same directory
+                    saveUserInfo(apiKey, enteredEmail, enteredPassword);
 
-            // Save credentials if "Remember me" is checked
-            if (rememberMe) {
-                localStorage.setItem('savedEmail', enteredEmail);
-                localStorage.setItem('savedPassword', enteredPassword);
+                    // Redirect to the dashboard with the generated code
+                    window.location.href = `https://www.trinow.zya.me/dashboard?id=${apiKey}`;
+
+                    // Save credentials if "Remember me" is checked
+                    if (rememberMe) {
+                        localStorage.setItem('savedEmail', enteredEmail);
+                        localStorage.setItem('savedPassword', enteredPassword);
+                    } else {
+                        localStorage.removeItem('savedEmail');
+                        localStorage.removeItem('savedPassword');
+                    }
+                } else {
+                    console.log('Error: Incorrect password');
+                }
             } else {
-                localStorage.removeItem('savedEmail');
-                localStorage.removeItem('savedPassword');
+                console.log('Error: Email not registered');
             }
         }
 
