@@ -51,6 +51,11 @@
             border-radius: 4px;
             cursor: pointer;
         }
+        registertxt {
+            colour: blue;
+            text-decoration: underlined;
+            cursor: pointer;
+            magrin-top: 20px;
     </style>
 </head>
 <body>
@@ -64,6 +69,7 @@
             <label for="rememberMe">
                 <input type="checkbox" id="rememberMe"> Remember me
             </label>
+            <div id="registertxt" onclick="window.location.href='onboarding'">Don't have account?</div>
             <br>
             <button type="button" onclick="login()">Login</button>
         </form>
